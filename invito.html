@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Invito Battesimo - Daniele Francesco Silvaggio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="envelope" id="envelope">
+            <div class="envelope-top"></div>
+            <div class="envelope-body">
+                <p>Famiglia Silvaggio</p>
+            </div>
+            <div class="wax-seal"></div>
+        </div>
+        
+        <div class="invitation" id="invitation">
+            <div class="cross">✝</div>
+            <h1>Santo Battesimo di</h1>
+            <h2 class="name">Daniele Francesco Silvaggio</h2>
+            
+            <div class="details">
+                <p class="invite-text">Con gioia e gratitudine al Signore</p>
+                <p class="invite-text">vi invitiamo a condividere questo momento di grazia</p>
+                
+                <div class="info">
+                    <p>📅 <strong>Data:</strong> <span class="highlight">Domenica 10 Agosto 2025</span></p>
+                    <p>⏰ <strong>Ora:</strong> <span class="highlight">11:00</span></p>
+                    <p>⛪ <strong>Chiesa:</strong> Maria Santissima Assunta</p>
+                    <p>📍 <strong>Indirizzo:</strong> San Marco di Cessaniti, VV</p>
+                </div>
+
+                <div class="map-container">
+                    <button class="map-toggle" onclick="toggleMap('church-map')">
+                        📍 Mostra mappa della chiesa
+                    </button>
+                    <div id="church-map" class="map hidden"></div>
+                </div>
+                
+                <div class="reception-section">
+                    <p class="reception">🎉 A seguire festeggeremo insieme presso</p>
+                    <p class="reception-location">Ristorante Parco degli Ulivi</p>
+                    <p class="reception-address">Francavilla Angitola</p>
+                </div>
+
+                <div class="map-container">
+                    <button class="map-toggle" onclick="toggleMap('restaurant-map')">
+                        📍 Mostra mappa del ristorante
+                    </button>
+                    <div id="restaurant-map" class="map hidden"></div>
+                </div>
+            </div>
+            
+            <div class="angels">👼 👼</div>
+            <p class="blessing">"Lasciate che i bambini vengano a me"</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
