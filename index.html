@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Invito Battesimo - Daniele Francesco Silvaggio</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=The+Nautigal:wght@400;700&display=swap" rel="stylesheet">
@@ -13,88 +16,17 @@
 <body>
     <div class="container">
         <div class="envelope" id="envelope">
-            <img src="battesimo.PNG" alt="Elegant envelope" class="envelope-image">
+            <img src="battesimo.png" alt="Elegant envelope" class="envelope-image">
             <div class="envelope-overlay">
                 <div class="simple-text">Tocca per aprire</div>
                 
             </div>
         </div>
         
-        <div class="invitation" id="invitation">
-            <div class="invitation-content">
-                <div class="cross">✝</div>
-                <h1>Santo Battesimo di</h1>
-                <h2 class="name">Daniele Francesco Silvaggio</h2>
-            
-            <div class="details">
-                <p class="invite-text">Con gioia e gratitudine al Signore</p>
-                <p class="invite-text">vi invitiamo a condividere questo momento di grazia</p>
-                
-                <div class="info">
-                    <p>📅 <strong>Data:</strong> <span class="highlight">Domenica 10 Agosto 2025</span></p>
-                    <p>⏰ <strong>Ora:</strong> <span class="highlight">11:00</span></p>
-                    <p>⛪ <strong>Chiesa:</strong> Maria Santissima Assunta</p>
-                    <p>📍 <strong>Indirizzo:</strong> Largo Chiesa, 89816 San Marco VV</p>
-                </div>
-
-                <div class="church-gallery">
-                    <h3 class="gallery-title">Chiesa Maria Santissima Assunta</h3>
-                    <div class="gallery-container">
-                        <div class="gallery-item">
-                            <img src="chiesa.PNG" alt="Chiesa Maria Santissima Assunta - Vista principale" class="gallery-image">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="chiesa-.jpg" alt="Chiesa Maria Santissima Assunta - Vista alternativa" class="gallery-image">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="map-container">
-                    <button class="map-toggle" onclick="toggleMap('church-map')">
-                        📍 Mostra mappa della chiesa
-                    </button>
-                    <div id="church-map" class="map hidden">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2611.9138657069007!2d16.007928110780263!3d38.67579667165446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13156fc3d0862139%3A0xc14afa61104e750a!2sChiesa%20di%20Maria%20SS.%20Assunta!5e1!3m2!1sit!2sit!4v1752574759851!5m2!1sit!2sit" 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </div>
-                
-                <div class="reception-section">
-                    <p class="reception">🎉 A seguire festeggeremo insieme presso</p>
-                    <p class="reception-location">Ristorante Parco degli Ulivi</p>
-                    <p class="reception-address">Contrada fra Giuseppe, 6 - 89815 Francavilla Angitola (VV)</p>
-                </div>
-
-                <div class="map-container">
-                    <button class="map-toggle" onclick="toggleMap('restaurant-map')">
-                        📍 Mostra mappa del ristorante
-                    </button>
-                    <div id="restaurant-map" class="map hidden">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12438.757041716488!2d16.2723653!3d38.7937574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1315598ff6bd5adf%3A0x3ee162ecb8178c75!2sRistorante%20B%26B%20Il%20Parco%20degli%20Ulivi!5e0!3m2!1sit!2sit!4v1752575779075!5m2!1sit!2sit" 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="angels">👼 👼</div>
-            <p class="blessing">"Lasciate che i bambini vengano a me"</p>
-            </div>
+        <div class="opened-invitation" id="opened-invitation">
+            <img src="aperto.jpg" alt="Invito aperto" class="opened-image">
         </div>
-    </div>
+        
     
     <script src="script.js"></script>
 </body>
