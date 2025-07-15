@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Script caricato');
     
-    // Inizializza le variabili per le mappe
-    let churchMap = null;
-    let restaurantMap = null;
+    // Funzione di inizializzazione per Google Maps (non più necessaria)
+    window.initMaps = function() {
+        console.log('Google Maps iframe ready');
+    };
     
     // Crea particelle di luce per lo sfondo
     function createParticles() {
@@ -40,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.openEnvelope = function() {
         const envelope = document.getElementById('envelope');
         const invitation = document.getElementById('invitation');
-        const waxSeal = document.querySelector('.wax-seal');
         
         if (envelope && invitation) {
             // Suono di rottura del sigillo (opzionale)
@@ -96,47 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 mapElement.style.opacity = '1';
                 mapElement.style.transform = 'translateY(0)';
             }, 10);
-            
-            // Inizializza la mappa se non esiste già
-            if (mapId === 'church-map' && !churchMap) {
-                setTimeout(() => {
-                    churchMap = L.map('church-map').setView([38.6891, 16.1542], 15);
-                    
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '© OpenStreetMap contributors'
-                    }).addTo(churchMap);
-                    
-                    const churchIcon = L.divIcon({
-                        html: '<div style="background: #1e3c72; color: white; padding: 8px; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.3);">⛪</div>',
-                        iconSize: [40, 40],
-                        className: 'custom-church-marker'
-                    });
-                    
-                    L.marker([38.6891, 16.1542], {icon: churchIcon})
-                        .addTo(churchMap)
-                        .bindPopup('<b style="font-size: 16px;">Chiesa Maria SS. Assunta</b><br>San Marco di Cessaniti')
-                        .openPopup();
-                }, 100);
-            } else if (mapId === 'restaurant-map' && !restaurantMap) {
-                setTimeout(() => {
-                    restaurantMap = L.map('restaurant-map').setView([38.8167, 16.1167], 15);
-                    
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        attribution: '© OpenStreetMap contributors'
-                    }).addTo(restaurantMap);
-                    
-                    const restaurantIcon = L.divIcon({
-                        html: '<div style="background: #e65100; color: white; padding: 8px; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.3);">🍽️</div>',
-                        iconSize: [40, 40],
-                        className: 'custom-restaurant-marker'
-                    });
-                    
-                    L.marker([38.8167, 16.1167], {icon: restaurantIcon})
-                        .addTo(restaurantMap)
-                        .bindPopup('<b style="font-size: 16px;">Ristorante Parco degli Ulivi</b><br>Francavilla Angitola')
-                        .openPopup();
-                }, 100);
-            }
         } else {
             mapElement.style.transition = 'all 0.3s ease';
             mapElement.style.opacity = '0';
@@ -189,17 +148,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 openEnvelope();
             }
         });
-        
-        // Click anche sulla ceralacca
-        if (waxSeal) {
-            waxSeal.addEventListener('click', function(e) {
-                console.log('Click su ceralacca');
-                e.stopPropagation();
-                if (!envelope.classList.contains('open')) {
-                    openEnvelope();
-                }
-            });
-        }
     } else {
         console.error('Envelope non trovato!');
     }
@@ -269,14 +217,13 @@ style.textContent = `
         pointer-events: none;
     }
     
-    .custom-church-marker,
-    .custom-restaurant-marker {
-        animation: markerPulse 2s ease-in-out infinite;
+    /* Stili specifici per Google Maps */
+    .gm-style-iw {
+        border-radius: 8px;
     }
     
-    @keyframes markerPulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.1); }
+    .gm-style-iw-d {
+        overflow: hidden !important;
     }
 `;
 document.head.appendChild(style);
