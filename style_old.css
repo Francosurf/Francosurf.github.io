@@ -1,0 +1,1230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+
+body {
+    font-family: 'Cormorant Garamond', serif;
+    background: 
+        radial-gradient(ellipse at top, rgba(255,215,0,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom, rgba(135,206,235,0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255,215,0,0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(135,206,235,0.05) 0%, transparent 50%);
+    animation: gentleFloat 20s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+    0%, 100% { transform: translate(-5%, -5%) rotate(0deg); }
+    50% { transform: translate(5%, 5%) rotate(180deg); }
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.envelope {
+    position: relative;
+    width: 500px;
+    height: 350px;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.envelope:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+.envelope-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.6s ease;
+}
+
+.envelope-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    transition: all 0.6s ease;
+}
+
+.envelope-text {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    color: rgba(255,255,255,0.95);
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Ceralacca dorata */
+.wax-seal {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background: 
+        radial-gradient(circle at 30% 30%, #f4e4c1 0%, #d4af37 40%, #b8941f 80%, #8b6914 100%);
+    border-radius: 50%;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 
+        0 4px 15px rgba(0,0,0,0.3),
+        inset -3px -3px 10px rgba(0,0,0,0.3),
+        inset 3px 3px 10px rgba(255,255,255,0.3);
+    z-index: 10;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.wax-seal::before {
+    content: '✝';
+    position: absolute;
+    font-size: 45px;
+    color: rgba(139,105,20,0.6);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 
+        -1px -1px 1px rgba(255,255,255,0.3),
+        1px 1px 2px rgba(0,0,0,0.3);
+}
+
+/* Texture ceralacca */
+.wax-seal::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-image: 
+        radial-gradient(circle at 20% 20%, transparent 20%, rgba(0,0,0,0.1) 21%, transparent 22%),
+        radial-gradient(circle at 60% 60%, transparent 20%, rgba(0,0,0,0.1) 21%, transparent 22%),
+        radial-gradient(circle at 80% 30%, transparent 15%, rgba(0,0,0,0.1) 16%, transparent 17%);
+}
+
+.wax-seal:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.envelope.open .wax-seal {
+    animation: breakSeal 0.6s ease forwards;
+}
+
+.invitation {
+    position: fixed;
+    width: 90%;
+    max-width: 500px;
+    background: linear-gradient(135deg, #fffffe 0%, #fafaf8 100%);
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 
+        0 25px 70px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(0,0,0,0.02);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(0.3);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    top: 50%;
+    left: 50%;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.invitation.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: all;
+    z-index: 9999;
+    box-shadow: 
+        0 30px 80px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(0,0,0,0.02);
+}
+
+/* Backdrop scuro quando l'invito è aperto */
+.invitation.show::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+    backdrop-filter: blur(3px);
+}
+
+.envelope.open {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotateY(10deg);
+    pointer-events: none;
+    z-index: 5;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animazione di apertura più fluida */
+@keyframes invitationReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(50px) rotateX(30deg);
+    }
+    50% {
+        transform: scale(1.02) translateY(-10px) rotateX(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotateX(0deg);
+    }
+}
+
+.invitation.show {
+    animation: invitationReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Bordo dorato */
+.invitation::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, #d4af37, #f4e4c1, #d4af37) 1;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.cross {
+    font-size: 60px;
+    background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.name {
+    font-family: 'Cinzel', serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 36px;
+    margin-bottom: 35px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.details {
+    color: #4a4a4a;
+    line-height: 1.8;
+}
+
+.invite-text {
+    font-size: 20px;
+    color: #5a5a5a;
+    margin: 8px 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.info {
+    background: 
+        linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(212,175,55,0.02) 100%),
+        #fafaf8;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 30px 0;
+    text-align: left;
+    border: 1px solid rgba(212,175,55,0.2);
+    position: relative;
+}
+
+.info::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, transparent, rgba(212,175,55,0.3), transparent);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.info:hover::before {
+    opacity: 1;
+}
+
+.info p {
+    margin: 12px 0;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.highlight {
+    color: #1e3c72;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.reception-section {
+    margin: 35px 0;
+    padding: 25px;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff5e1 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(230,81,0,0.1);
+}
+
+.reception {
+    font-size: 20px;
+    color: #5a5a5a;
+    margin-bottom: 12px;
+}
+
+.reception-location {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    background: linear-gradient(135deg, #e65100 0%, #ff6d00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    margin: 8px 0;
+}
+
+.reception-address {
+    color: #666;
+    font-size: 18px;
+}
+
+.map-container {
+    margin: 25px 0;
+}
+
+.map-toggle {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 15px rgba(30,60,114,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.map-toggle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.map-toggle:hover::before {
+    left: 100%;
+}
+
+.map-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 20px rgba(30,60,114,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.map {
+    height: 280px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(212,175,55,0.3);
+}
+
+.map.hidden {
+    display: none;
+}
+
+.angels {
+    font-size: 40px;
+    margin: 30px 0 15px;
+    animation: floatAngels 4s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+@keyframes floatAngels {
+    0%, 100% { 
+        transform: translateY(0) scale(1); 
+        filter: brightness(1);
+    }
+    50% { 
+        transform: translateY(-15px) scale(1.05); 
+        filter: brightness(1.2);
+    }
+}
+
+.blessing {
+    font-style: italic;
+    color: #666;
+    font-size: 16px;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* ...existing code... */
+
+.invitation {
+    position: fixed;
+    width: 90%;
+    max-width: 500px;
+    background: linear-gradient(135deg, #fffffe 0%, #fafaf8 100%);
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 
+        0 25px 70px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(0,0,0,0.02);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(0.3);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    top: 50%;
+    left: 50%;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.invitation.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: all;
+    z-index: 9999;
+    box-shadow: 
+        0 30px 80px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(0,0,0,0.02);
+}
+
+/* Backdrop scuro quando l'invito è aperto */
+.invitation.show::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+    backdrop-filter: blur(3px);
+}
+
+.envelope.open {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotateY(10deg);
+    pointer-events: none;
+    z-index: 5;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animazione di apertura più fluida */
+@keyframes invitationReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(50px) rotateX(30deg);
+    }
+    50% {
+        transform: scale(1.02) translateY(-10px) rotateX(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotateX(0deg);
+    }
+}
+
+.invitation.show {
+    animation: invitationReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Bordo dorato */
+.invitation::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, #d4af37, #f4e4c1, #d4af37) 1;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.cross {
+    font-size: 60px;
+    background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.name {
+    font-family: 'Cinzel', serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 36px;
+    margin-bottom: 35px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.details {
+    color: #4a4a4a;
+    line-height: 1.8;
+}
+
+.invite-text {
+    font-size: 20px;
+    color: #5a5a5a;
+    margin: 8px 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.info {
+    background: 
+        linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(212,175,55,0.02) 100%),
+        #fafaf8;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 30px 0;
+    text-align: left;
+    border: 1px solid rgba(212,175,55,0.2);
+    position: relative;
+}
+
+.info::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, transparent, rgba(212,175,55,0.3), transparent);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.info:hover::before {
+    opacity: 1;
+}
+
+.info p {
+    margin: 12px 0;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.highlight {
+    color: #1e3c72;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.reception-section {
+    margin: 35px 0;
+    padding: 25px;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff5e1 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(230,81,0,0.1);
+}
+
+.reception {
+    font-size: 20px;
+    color: #5a5a5a;
+    margin-bottom: 12px;
+}
+
+.reception-location {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    background: linear-gradient(135deg, #e65100 0%, #ff6d00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    margin: 8px 0;
+}
+
+.reception-address {
+    color: #666;
+    font-size: 18px;
+}
+
+.map-container {
+    margin: 25px 0;
+}
+
+.map-toggle {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 15px rgba(30,60,114,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.map-toggle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.map-toggle:hover::before {
+    left: 100%;
+}
+
+.map-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 20px rgba(30,60,114,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.map {
+    height: 280px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(212,175,55,0.3);
+}
+
+.map.hidden {
+    display: none;
+}
+
+.angels {
+    font-size: 40px;
+    margin: 30px 0 15px;
+    animation: floatAngels 4s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+@keyframes floatAngels {
+    0%, 100% { 
+        transform: translateY(0) scale(1); 
+        filter: brightness(1);
+    }
+    50% { 
+        transform: translateY(-15px) scale(1.05); 
+        filter: brightness(1.2);
+    }
+}
+
+.blessing {
+    font-style: italic;
+    color: #666;
+    font-size: 16px;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* ...existing code... */
+
+.invitation {
+    position: fixed;
+    width: 90%;
+    max-width: 500px;
+    background: linear-gradient(135deg, #fffffe 0%, #fafaf8 100%);
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 
+        0 25px 70px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(0,0,0,0.02);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(0.3);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    top: 50%;
+    left: 50%;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.invitation.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: all;
+    z-index: 9999;
+    box-shadow: 
+        0 30px 80px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(0,0,0,0.02);
+}
+
+/* Backdrop scuro quando l'invito è aperto */
+.invitation.show::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+    backdrop-filter: blur(3px);
+}
+
+.envelope.open {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotateY(10deg);
+    pointer-events: none;
+    z-index: 5;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animazione di apertura più fluida */
+@keyframes invitationReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(50px) rotateX(30deg);
+    }
+    50% {
+        transform: scale(1.02) translateY(-10px) rotateX(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotateX(0deg);
+    }
+}
+
+.invitation.show {
+    animation: invitationReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Bordo dorato */
+.invitation::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, #d4af37, #f4e4c1, #d4af37) 1;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.cross {
+    font-size: 60px;
+    background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.name {
+    font-family: 'Cinzel', serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 36px;
+    margin-bottom: 35px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.details {
+    color: #4a4a4a;
+    line-height: 1.8;
+}
+
+.invite-text {
+    font-size: 20px;
+    color: #5a5a5a;
+    margin: 8px 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.info {
+    background: 
+        linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(212,175,55,0.02) 100%),
+        #fafaf8;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 30px 0;
+    text-align: left;
+    border: 1px solid rgba(212,175,55,0.2);
+    position: relative;
+}
+
+.info::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, transparent, rgba(212,175,55,0.3), transparent);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.info:hover::before {
+    opacity: 1;
+}
+
+.info p {
+    margin: 12px 0;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.highlight {
+    color: #1e3c72;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.reception-section {
+    margin: 35px 0;
+    padding: 25px;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff5e1 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(230,81,0,0.1);
+}
+
+.reception {
+    font-size: 20px;
+    color: #5a5a5a;
+    margin-bottom: 12px;
+}
+
+.reception-location {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    background: linear-gradient(135deg, #e65100 0%, #ff6d00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    margin: 8px 0;
+}
+
+.reception-address {
+    color: #666;
+    font-size: 18px;
+}
+
+.map-container {
+    margin: 25px 0;
+}
+
+.map-toggle {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 15px rgba(30,60,114,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.map-toggle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.map-toggle:hover::before {
+    left: 100%;
+}
+
+.map-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 20px rgba(30,60,114,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.map {
+    height: 280px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(212,175,55,0.3);
+}
+
+.map.hidden {
+    display: none;
+}
+
+.angels {
+    font-size: 40px;
+    margin: 30px 0 15px;
+    animation: floatAngels 4s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+@keyframes floatAngels {
+    0%, 100% { 
+        transform: translateY(0) scale(1); 
+        filter: brightness(1);
+    }
+    50% { 
+        transform: translateY(-15px) scale(1.05); 
+        filter: brightness(1.2);
+    }
+}
+
+.blessing {
+    font-style: italic;
+    color: #666;
+    font-size: 16px;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* ...existing code... */
+
+/* Responsive Design - Aggiornato */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .envelope {
+        width: 320px;
+        height: 220px;
+    }
+    
+    .envelope-top {
+        border-width: 0 160px 110px 160px;
+    }
+    
+    .envelope.open .envelope-top {
+        transform: rotateX(180deg) translateY(-110px);
+    }
+    
+    .envelope::before {
+        border-width: 110px 160px 0 160px;
+    }
+    
+    .envelope-body {
+        font-size: 16px;
+    }
+    
+    .wax-seal {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .wax-seal::before {
+        font-size: 35px;
+    }
+    
+    .invitation {
+        position: fixed;
+        width: 95%;
+        max-width: none;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.3);
+        max-height: 85vh;
+        padding: 25px 20px;
+    }
+    
+    .invitation.show {
+        transform: translate(-50%, -50%) scale(1);
+        z-index: 9999;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+    
+    .name {
+        font-size: 26px;
+    }
+    
+    .invite-text {
+        font-size: 16px;
+    }
+    
+    .info {
+        padding: 20px;
+    }
+    
+    .info p {
+        font-size: 15px;
+    }
+    
+    .highlight {
+        font-size: 16px;
+    }
+    
+    .reception-location {
+        font-size: 20px;
+    }
+    
+    .map {
+        height: 200px;
+    }
+    
+    .angels {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .envelope {
+        width: 280px;
+        height: 200px;
+    }
+    
+    .envelope-top {
+        border-width: 0 140px 100px 140px;
+    }
+    
+    .envelope.open .envelope-top {
+        transform: rotateX(180deg) translateY(-100px);
+    }
+    
+    .envelope::before {
+        border-width: 100px 140px 0 140px;
+    }
+    
+    .invitation {
+        width: 95%;
+        padding: 20px 15px;
+        max-height: 90vh;
+    }
+    
+    .cross {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+    
+    .name {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+    
+    .info p {
+        font-size: 14px;
+        margin: 8px 0;
+    }
+}
+
+/* Desktop ottimizzazioni */
+@media (min-width: 1024px) {
+    .envelope {
+        width: 450px;
+        height: 320px;
+    }
+    
+    .envelope-top {
+        border-width: 0 225px 160px 225px;
+    }
+    
+    .envelope.open .envelope-top {
+        transform: rotateX(180deg) translateY(-160px);
+    }
+    
+    .envelope::before {
+        border-width: 160px 225px 0 225px;
+    }
+    
+    .wax-seal {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .wax-seal::before {
+        font-size: 50px;
+    }
+    
+    .invitation {
+        max-width: 550px;
+        padding: 50px;
+        max-height: 80vh;
+    }
+}
+
+/* Animazione rottura sigillo migliorata */
+@keyframes breakSeal {
+    0% { 
+        transform: translate(-50%, -50%) scale(1) rotate(0deg); 
+    }
+    25% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(-10deg);
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.15) rotate(10deg);
+        opacity: 1;
+    }
+    75% {
+        transform: translate(-50%, -50%) scale(0.9) rotate(180deg);
+        opacity: 0.5;
+    }
+    100% { 
+        transform: translate(-50%, -150%) scale(0) rotate(360deg); 
+        opacity: 0;
+    }
+}
+
+/* ...existing code... */
+
+/* Scrollbar personalizzata */
+.invitation::-webkit-scrollbar {
+    width: 8px;
+}
+
+.invitation::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.invitation::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 100%);
+    border-radius: 10px;
+}
+
+.invitation::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #b8941f 0%, #d4c4a1 100%);
+}

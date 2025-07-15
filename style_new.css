@@ -163,51 +163,71 @@ body::before {
 
 .invitation {
     position: fixed;
-    width: 100vw;
-    height: 100vh;
+    width: 90%;
+    max-width: 500px;
     background: linear-gradient(135deg, #fffffe 0%, #fafaf8 100%);
-    border-radius: 0;
-    padding: 0;
+    border-radius: 15px;
+    padding: 40px;
     text-align: center;
-    box-shadow: none;
+    box-shadow: 
+        0 25px 70px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(0,0,0,0.02);
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.8);
-    transition: all 0.4s ease;
-    top: 0;
-    left: 0;
+    transform: translate(-50%, -50%) scale(0.3);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    top: 50%;
+    left: 50%;
+    max-height: 90vh;
     overflow-y: auto;
     z-index: 50;
     pointer-events: none;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.invitation-content {
-    max-width: 1000px;
-    width: 95%;
-    padding: 60px 40px 40px 40px;
-    margin: 0 auto;
-    overflow-y: auto;
-    max-height: none;
-    position: relative;
-    z-index: 10;
-    min-height: auto;
 }
 
 .invitation.show {
     opacity: 1;
     visibility: visible;
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
     pointer-events: all;
     z-index: 9999;
-    box-shadow: none;
+    box-shadow: 
+        0 30px 80px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(0,0,0,0.02);
 }
 
-/* Rimuoviamo l'animazione problematica */
+/* Backdrop scuro quando l'invito è aperto */
+.invitation.show::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+    backdrop-filter: blur(3px);
+}
 
-/* Bordo dorato per schermo intero */
+/* Animazione di apertura più fluida */
+@keyframes invitationReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(50px) rotateX(30deg);
+    }
+    50% {
+        transform: scale(1.02) translateY(-10px) rotateX(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotateX(0deg);
+    }
+}
+
+.invitation.show {
+    animation: invitationReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Bordo dorato */
 .invitation::before {
     content: '';
     position: absolute;
@@ -217,7 +237,7 @@ body::before {
     bottom: 20px;
     border: 2px solid transparent;
     border-image: linear-gradient(45deg, #d4af37, #f4e4c1, #d4af37) 1;
-    border-radius: 10px;
+    border-radius: 8px;
     pointer-events: none;
 }
 
@@ -487,10 +507,11 @@ h1 {
         font-size: 35px;
     }
     
-    .invitation-content {
-        padding: 40px 20px 30px 20px;
-        max-width: 100%;
-        width: 98%;
+    .invitation {
+        width: 95%;
+        max-width: none;
+        padding: 25px 20px;
+        max-height: 90vh;
     }
     
     h1 {
@@ -540,10 +561,10 @@ h1 {
         font-size: 18px;
     }
     
-    .invitation-content {
-        padding: 30px 15px 20px 15px;
-        max-width: 100%;
-        width: 98%;
+    .invitation {
+        width: 95%;
+        padding: 20px 15px;
+        max-height: 95vh;
     }
     
     .cross {
@@ -582,106 +603,9 @@ h1 {
         font-size: 50px;
     }
     
-    .invitation-content {
-        max-width: 1200px;
-        width: 85%;
-        padding: 100px 60px 80px 60px;
-    }
-    
-    .cross {
-        font-size: 80px;
-    }
-    
-    h1 {
-        font-size: 32px;
-    }
-    
-    .name {
-        font-size: 48px;
-    }
-    
-    .invite-text {
-        font-size: 24px;
-    }
-    
-    .info p {
-        font-size: 22px;
-    }
-    
-    .highlight {
-        font-size: 24px;
-    }
-    
-    .reception-location {
-        font-size: 32px;
-    }
-    
-    .reception {
-        font-size: 24px;
-    }
-    
-    .angels {
-        font-size: 50px;
-    }
-    
-    .blessing {
-        font-size: 20px;
-    }
-}
-
-/* Schermi molto grandi (4K e oltre) */
-@media (min-width: 1440px) {
-    .invitation-content {
-        max-width: 1400px;
-        width: 80%;
-        padding: 120px 80px 100px 80px;
-    }
-    
-    .cross {
-        font-size: 100px;
-    }
-    
-    h1 {
-        font-size: 40px;
-    }
-    
-    .name {
-        font-size: 56px;
-    }
-    
-    .invite-text {
-        font-size: 28px;
-    }
-    
-    .info {
-        padding: 40px;
-    }
-    
-    .info p {
-        font-size: 26px;
-    }
-    
-    .highlight {
-        font-size: 28px;
-    }
-    
-    .reception-section {
-        padding: 40px;
-    }
-    
-    .reception-location {
-        font-size: 38px;
-    }
-    
-    .reception {
-        font-size: 28px;
-    }
-    
-    .angels {
-        font-size: 60px;
-    }
-    
-    .blessing {
-        font-size: 24px;
+    .invitation {
+        max-width: 550px;
+        padding: 50px;
+        max-height: 85vh;
     }
 }
