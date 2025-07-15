@@ -386,6 +386,31 @@ document.addEventListener('DOMContentLoaded', function() {
 // Stili dinamici per animazioni eleganti
 const style = document.createElement('style');
 style.textContent = `
+    /* CSS globale per centrare l'invito */
+    body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #d9e7ff 100%);
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+    }
+    
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        position: relative;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
     /* Animazioni per la busta - MIGLIORATE */
     @keyframes envelopeIdle {
         0%, 100% { 
@@ -715,13 +740,16 @@ style.textContent = `
         cursor: pointer;
         will-change: transform, opacity;
         perspective: 1000px;
-        max-width: 90vw;
-        max-height: 80vh;
+        max-width: 400px;
+        max-height: 300px;
         width: auto;
         height: auto;
         display: flex;
         justify-content: center;
         align-items: center;
+        margin: auto;
+        position: relative;
+        z-index: 10;
     }
     
     .envelope-image {
@@ -742,7 +770,7 @@ style.textContent = `
         left: 0;
         width: 100vw;
         height: 100vh;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         background: 
             radial-gradient(ellipse at 25% 25%, rgba(255,223,0,0.1) 0%, transparent 50%),
@@ -750,10 +778,12 @@ style.textContent = `
             linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #d9e7ff 100%);
         z-index: 1000;
         will-change: transform, opacity, filter;
-        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
         position: relative;
         padding: 2vh 2vw;
         box-sizing: border-box;
+        flex-direction: column;
     }
     
     .opened-invitation::after {
@@ -784,7 +814,7 @@ style.textContent = `
     
     .opened-image {
         max-width: 90vw;
-        max-height: 85vh;
+        max-height: none;
         width: auto;
         height: auto;
         object-fit: contain;
@@ -800,7 +830,39 @@ style.textContent = `
         position: relative;
         z-index: 10;
         display: block;
-        margin: auto;
+        margin: 2vh auto;
+        min-height: 40vh;
+    }
+    
+    /* Scrollbar personalizzata per l'invito aperto */
+    .opened-invitation::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    .opened-invitation::-webkit-scrollbar-track {
+        background: rgba(255,255,255,0.1);
+        border-radius: 10px;
+    }
+    
+    .opened-invitation::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, 
+            rgba(135,206,235,0.6) 0%, 
+            rgba(255,223,0,0.4) 100%);
+        border-radius: 10px;
+        border: 2px solid rgba(255,255,255,0.1);
+    }
+    
+    .opened-invitation::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, 
+            rgba(135,206,235,0.8) 0%, 
+            rgba(255,223,0,0.6) 100%);
+    }
+    
+    /* Smooth scrolling per Firefox */
+    .opened-invitation {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(135,206,235,0.6) rgba(255,255,255,0.1);
+        scroll-behavior: smooth;
     }
     
     .opened-image:hover {
@@ -844,11 +906,21 @@ style.textContent = `
         }
     }
     
-    /* Responsive design per tutti i dispositivi */
+    /* Responsive design per tutti i dispositivi con scroll */
     @media (max-width: 480px) {
+        body {
+            padding: 10px;
+        }
+        
+        .container {
+            padding: 10px;
+            min-height: 100vh;
+        }
+        
         .envelope {
-            max-width: 95vw;
-            max-height: 70vh;
+            max-width: 300px;
+            max-height: 200px;
+            margin: auto;
         }
         
         .envelope-image {
@@ -858,95 +930,169 @@ style.textContent = `
         
         .opened-image {
             max-width: 95vw;
-            max-height: 80vh;
+            min-height: 50vh;
             border-radius: 8px;
+            margin: 1vh auto;
         }
         
         .opened-image:hover {
             transform: none; /* Disabilita zoom su mobile piccolo */
         }
+        
+        .opened-invitation {
+            padding: 1vh 2.5vw;
+        }
     }
     
     @media (max-width: 768px) and (min-width: 481px) {
+        .container {
+            padding: 15px;
+        }
+        
         .envelope {
-            max-width: 92vw;
-            max-height: 75vh;
+            max-width: 350px;
+            max-height: 250px;
+            margin: auto;
         }
         
         .opened-image {
             max-width: 92vw;
-            max-height: 82vh;
+            min-height: 45vh;
             border-radius: 10px;
+            margin: 1.5vh auto;
         }
         
         .opened-image:hover {
             transform: scale(1.01); /* Zoom ridotto su tablet */
         }
+        
+        .opened-invitation {
+            padding: 1.5vh 4vw;
+        }
     }
     
     @media (min-width: 769px) and (max-width: 1024px) {
+        .container {
+            padding: 20px;
+        }
+        
         .envelope {
-            max-width: 85vw;
-            max-height: 80vh;
+            max-width: 380px;
+            max-height: 280px;
+            margin: auto;
         }
         
         .opened-image {
             max-width: 88vw;
-            max-height: 85vh;
+            min-height: 40vh;
             border-radius: 12px;
+            margin: 2vh auto;
+        }
+        
+        .opened-invitation {
+            padding: 2vh 6vw;
         }
     }
     
     @media (min-width: 1025px) and (max-width: 1440px) {
+        .container {
+            padding: 20px;
+        }
+        
         .envelope {
-            max-width: 80vw;
-            max-height: 85vh;
+            max-width: 400px;
+            max-height: 300px;
+            margin: auto;
         }
         
         .opened-image {
             max-width: 85vw;
-            max-height: 88vh;
+            min-height: 35vh;
             border-radius: 15px;
+            margin: 2vh auto;
+        }
+        
+        .opened-invitation {
+            padding: 2vh 7.5vw;
         }
     }
     
     @media (min-width: 1441px) {
+        .container {
+            padding: 20px;
+        }
+        
         .envelope {
-            max-width: 75vw;
-            max-height: 80vh;
+            max-width: 450px;
+            max-height: 350px;
+            margin: auto;
         }
         
         .opened-image {
             max-width: 80vw;
-            max-height: 85vh;
+            min-height: 30vh;
             border-radius: 20px;
+            margin: 3vh auto;
+        }
+        
+        .opened-invitation {
+            padding: 3vh 10vw;
         }
     }
     
-    /* Orientamento landscape per mobile */
+    /* Orientamento landscape per mobile con scroll */
     @media (max-height: 500px) and (orientation: landscape) {
+        body {
+            padding: 5px;
+        }
+        
+        .container {
+            padding: 5px;
+            min-height: 100vh;
+        }
+        
         .envelope {
-            max-width: 70vw;
-            max-height: 85vh;
+            max-width: 280px;
+            max-height: 200px;
+            margin: auto;
         }
         
         .opened-image {
             max-width: 75vw;
-            max-height: 85vh;
+            min-height: 60vh;
+            margin: 1vh auto;
+        }
+        
+        .opened-invitation {
+            padding: 1vh 5vw;
         }
     }
     
-    /* Dispositivi molto piccoli */
+    /* Dispositivi molto piccoli con scroll ottimizzato */
     @media (max-width: 320px) {
+        body {
+            padding: 5px;
+        }
+        
+        .container {
+            padding: 5px;
+        }
+        
         .envelope {
-            max-width: 98vw;
-            max-height: 65vh;
+            max-width: 280px;
+            max-height: 180px;
+            margin: auto;
         }
         
         .opened-image {
             max-width: 98vw;
-            max-height: 75vh;
+            min-height: 55vh;
             border-radius: 5px;
+            margin: 0.5vh auto;
+        }
+        
+        .opened-invitation {
+            padding: 0.5vh 1vw;
         }
     }
     
@@ -1005,3 +1151,20 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Gestore del ridimensionamento finestra con scroll
+window.addEventListener('resize', function() {
+    const openedInvitation = document.querySelector('.opened-invitation');
+    
+    if (openedInvitation && openedInvitation.style.display === 'flex') {
+        // Forza il ricalcolo delle dimensioni con scroll
+        setTimeout(() => {
+            openedInvitation.scrollTop = 0; // Torna in cima
+            const openedImage = openedInvitation.querySelector('.opened-image');
+            if (openedImage) {
+                // Aggiorna l'altezza dell'immagine per il nuovo viewport
+                openedImage.style.minHeight = Math.max(window.innerHeight * 0.3, 200) + 'px';
+            }
+        }, 100);
+    }
+});
