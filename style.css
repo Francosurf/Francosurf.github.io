@@ -4,14 +4,13 @@
     box-sizing: border-box;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=The+Nautigal:wght@400;700&family=Great+Vibes&family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Allura&family=Alex+Brush&family=Satisfy&display=swap');
 
 body {
     font-family: 'Cormorant Garamond', serif;
     background: 
-        radial-gradient(ellipse at top, rgba(255,215,0,0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at bottom, rgba(135,206,235,0.1) 0%, transparent 50%),
-        linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        radial-gradient(ellipse at center, rgba(224,236,255,0.5) 0%, rgba(255,255,255,0.8) 60%),
+        linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 50%, #d9e7ff 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -21,16 +20,55 @@ body {
     overflow: hidden;
 }
 
+/* Fiori stilizzati azzurrini negli angoli */
 body::before {
     content: '';
-    position: absolute;
-    width: 150%;
-    height: 150%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-image: 
-        radial-gradient(circle at 20% 30%, rgba(255,215,0,0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(135,206,235,0.05) 0%, transparent 50%);
+        /* Fiore angolo alto sinistro */
+        radial-gradient(circle at 50px 50px, #87ceeb 2px, transparent 3px),
+        radial-gradient(circle at 60px 40px, #b0e0e6 1.5px, transparent 2px),
+        radial-gradient(circle at 40px 60px, #add8e6 1.5px, transparent 2px),
+        radial-gradient(circle at 70px 55px, #87ceeb 1px, transparent 1.5px),
+        radial-gradient(circle at 35px 45px, #b0e0e6 1px, transparent 1.5px),
+        
+        /* Fiore angolo alto destro */
+        radial-gradient(circle at calc(100% - 50px) 50px, #87ceeb 2px, transparent 3px),
+        radial-gradient(circle at calc(100% - 60px) 40px, #b0e0e6 1.5px, transparent 2px),
+        radial-gradient(circle at calc(100% - 40px) 60px, #add8e6 1.5px, transparent 2px),
+        radial-gradient(circle at calc(100% - 70px) 55px, #87ceeb 1px, transparent 1.5px),
+        radial-gradient(circle at calc(100% - 35px) 45px, #b0e0e6 1px, transparent 1.5px),
+        
+        /* Fiore angolo basso sinistro */
+        radial-gradient(circle at 50px calc(100% - 50px), #87ceeb 2px, transparent 3px),
+        radial-gradient(circle at 60px calc(100% - 40px), #b0e0e6 1.5px, transparent 2px),
+        radial-gradient(circle at 40px calc(100% - 60px), #add8e6 1.5px, transparent 2px),
+        radial-gradient(circle at 70px calc(100% - 55px), #87ceeb 1px, transparent 1.5px),
+        radial-gradient(circle at 35px calc(100% - 45px), #b0e0e6 1px, transparent 1.5px),
+        
+        /* Fiore angolo basso destro */
+        radial-gradient(circle at calc(100% - 50px) calc(100% - 50px), #87ceeb 2px, transparent 3px),
+        radial-gradient(circle at calc(100% - 60px) calc(100% - 40px), #b0e0e6 1.5px, transparent 2px),
+        radial-gradient(circle at calc(100% - 40px) calc(100% - 60px), #add8e6 1.5px, transparent 2px),
+        radial-gradient(circle at calc(100% - 70px) calc(100% - 55px), #87ceeb 1px, transparent 1.5px),
+        radial-gradient(circle at calc(100% - 35px) calc(100% - 45px), #b0e0e6 1px, transparent 1.5px),
+        
+        /* Fiori sui bordi */
+        radial-gradient(circle at 50% 20px, #87ceeb 1.5px, transparent 2px),
+        radial-gradient(circle at 20px 50%, #b0e0e6 1.5px, transparent 2px),
+        radial-gradient(circle at calc(100% - 20px) 50%, #add8e6 1.5px, transparent 2px),
+        radial-gradient(circle at 50% calc(100% - 20px), #87ceeb 1.5px, transparent 2px);
+    
+    pointer-events: none;
+    z-index: 1;
     animation: gentleFloat 20s ease-in-out infinite;
 }
+
+/* Decorazioni floreali azzurrine - ora integrate nel body::before */
 
 @keyframes gentleFloat {
     0%, 100% { transform: translate(-5%, -5%) rotate(0deg); }
@@ -50,13 +88,16 @@ body::before {
 
 .envelope {
     position: relative;
-    width: 500px;
-    height: 350px;
+    max-width: 90vw;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
     cursor: pointer;
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
     border-radius: 8px;
-    overflow: hidden;
+    overflow: visible;
+    display: inline-block;
 }
 
 .envelope:hover {
@@ -65,10 +106,15 @@ body::before {
 }
 
 .envelope-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+    object-position: center;
     transition: all 0.6s ease;
+    background: #f8f9fa;
+    display: block;
 }
 
 .envelope-overlay {
@@ -115,13 +161,13 @@ body::before {
 /* Testo semplice per apertura */
 .simple-text {
     position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 5px;
+    bottom: 5px;
+    transform: translateY(0);
     font-family: 'Cinzel', serif;
     color: rgba(255,255,255,0.95);
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 400;
     letter-spacing: 1px;
     text-shadow: 
         0 0 10px rgba(0,0,0,0.9),
@@ -138,11 +184,11 @@ body::before {
 @keyframes gentleGlow {
     0%, 100% { 
         opacity: 0.9;
-        transform: translateX(-50%) translateY(0);
+        transform: translateY(0) translateX(0);
     }
     50% { 
         opacity: 1;
-        transform: translateX(-50%) translateY(-3px);
+        transform: translateY(-3px) translateX(-3px);
         text-shadow: 0 3px 12px rgba(255,255,255,0.3), 0 2px 8px rgba(0,0,0,0.8);
     }
 }
@@ -185,7 +231,7 @@ body::before {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background: linear-gradient(135deg, #fffffe 0%, #fafaf8 100%);
+    background: radial-gradient(circle, #ffffff 50%, #e6e9f0 100%);
     border-radius: 0;
     padding: 0;
     text-align: center;
@@ -214,6 +260,24 @@ body::before {
     position: relative;
     z-index: 10;
     min-height: auto;
+    color: #2b4245;
+}
+
+/* Elemento decorativo aggiuntivo in basso a sinistra */
+.invitation-content::before {
+    content: '';
+    position: absolute;
+    background-image: url('https://www.svgrepo.com/show/115436/floral-design.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 180px;
+    bottom: 20px;
+    left: 20px;
+    transform: rotate(-15deg);
+    opacity: 0.25;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .invitation.show {
@@ -227,23 +291,38 @@ body::before {
 
 /* Rimuoviamo l'animazione problematica */
 
-/* Bordo dorato per schermo intero */
+/* Rimosso il bordo dorato per schermo intero */
 .invitation::before {
+    display: none;
+}
+
+/* Elementi decorativi floreali per l'invito */
+.invitation::after {
     content: '';
     position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-    border: 2px solid transparent;
-    border-image: linear-gradient(45deg, #d4af37, #f4e4c1, #d4af37) 1;
-    border-radius: 10px;
+    background-image: 
+        /* Fiori decorativi azzurrini sparsi */
+        radial-gradient(circle at 85% 15%, #87ceeb 1.5px, transparent 2px),
+        radial-gradient(circle at 90% 20%, #b0e0e6 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 25%, #add8e6 1px, transparent 1.5px),
+        radial-gradient(circle at 15% 85%, #87ceeb 1.5px, transparent 2px),
+        radial-gradient(circle at 10% 80%, #b0e0e6 1px, transparent 1.5px),
+        radial-gradient(circle at 20% 90%, #add8e6 1px, transparent 1.5px),
+        radial-gradient(circle at 50% 10%, #87ceeb 1px, transparent 1.5px),
+        radial-gradient(circle at 50% 90%, #b0e0e6 1px, transparent 1.5px);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.4;
+    z-index: 1;
     pointer-events: none;
+    animation: gentleFloat 25s ease-in-out infinite reverse;
 }
 
 .cross {
     font-size: 60px;
-    background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 50%, #d4af37 100%);
+    background: linear-gradient(135deg, #4d7ea8 0%, #6b9bd1 50%, #4d7ea8 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -252,24 +331,28 @@ body::before {
 }
 
 h1 {
-    font-family: 'Cinzel', serif;
-    color: #2c3e50;
+    font-family: 'Cormorant Garamond', serif;
+    color: #4d7ea8;
     font-size: 24px;
     margin-bottom: 15px;
     font-weight: 400;
-    letter-spacing: 2px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    font-style: italic;
 }
 
 .name {
-    font-family: 'Cinzel', serif;
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    font-family: 'The Nautigal', 'Great Vibes', 'Allura', 'Dancing Script', cursive;
+    background: linear-gradient(135deg, #4d7ea8 0%, #6b9bd1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    font-size: 36px;
+    font-size: 80px;
     margin-bottom: 35px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    line-height: 1.2;
 }
 
 .details {
@@ -278,42 +361,27 @@ h1 {
 }
 
 .invite-text {
+    font-family: 'Cormorant Garamond', serif;
     font-size: 20px;
-    color: #5a5a5a;
+    color: #4a4a4a;
     margin: 8px 0;
-    font-weight: 300;
-    letter-spacing: 0.5px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    line-height: 1.6;
+    font-style: italic;
 }
 
 .info {
-    background: 
-        linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(212,175,55,0.02) 100%),
-        #fafaf8;
-    padding: 30px;
-    border-radius: 10px;
+    background: transparent;
+    padding: 20px 0;
+    border-radius: 0;
     margin: 30px 0;
     text-align: left;
-    border: 1px solid rgba(212,175,55,0.2);
+    border: none;
     position: relative;
 }
 
-.info::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    right: -1px;
-    bottom: -1px;
-    background: linear-gradient(45deg, transparent, rgba(212,175,55,0.3), transparent);
-    border-radius: 10px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-}
-
-.info:hover::before {
-    opacity: 1;
-}
+/* Rimosso effetto hover per il riquadro info */
 
 .info p {
     margin: 12px 0;
@@ -321,61 +389,72 @@ h1 {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 400;
 }
 
 .highlight {
-    color: #1e3c72;
+    color: #4d7ea8;
     font-weight: 600;
     font-size: 20px;
 }
 
 .reception-section {
     margin: 35px 0;
-    padding: 25px;
-    background: linear-gradient(135deg, #fff9e6 0%, #fff5e1 100%);
-    border-radius: 10px;
-    border: 1px solid rgba(230,81,0,0.1);
+    padding: 15px 0;
+    background: transparent;
+    border-radius: 0;
+    border: none;
 }
 
 .reception {
+    font-family: 'Cormorant Garamond', serif;
     font-size: 20px;
     color: #5a5a5a;
     margin-bottom: 12px;
+    font-style: italic;
+    font-weight: 400;
 }
 
 .reception-location {
-    font-family: 'Cinzel', serif;
-    font-size: 26px;
-    background: linear-gradient(135deg, #e65100 0%, #ff6d00 100%);
+    font-family: 'Dancing Script', cursive;
+    font-size: 32px;
+    background: linear-gradient(135deg, #4d7ea8 0%, #6b9bd1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 600;
     margin: 8px 0;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
 }
 
 .reception-address {
+    font-family: 'Cormorant Garamond', serif;
     color: #666;
     font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
 }
 
 .church-gallery {
     margin: 25px 0;
-    padding: 20px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border-radius: 15px;
-    border: 1px solid rgba(212,175,55,0.2);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    padding: 10px 0;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
 }
 
 .gallery-title {
     text-align: center;
-    font-family: 'Cinzel', serif;
-    color: #1e3c72;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+    font-family: 'Cormorant Garamond', serif;
+    color: #4d7ea8;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
     margin-bottom: 20px;
+    font-style: italic;
 }
 
 .gallery-container {
@@ -388,23 +467,25 @@ h1 {
 
 .gallery-item {
     overflow: hidden;
-    border-radius: 8px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 0;
+    box-shadow: none;
+    transition: transform 0.3s ease;
     cursor: pointer;
 }
 
 .gallery-item:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+    box-shadow: none;
 }
 
 .gallery-image {
     width: 100%;
     height: 180px;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
     display: block;
     transition: transform 0.3s ease;
+    background: #f8f9fa;
 }
 
 .gallery-item:hover .gallery-image {
@@ -416,7 +497,7 @@ h1 {
 }
 
 .map-toggle {
-    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background: linear-gradient(135deg, #4d7ea8 0%, #6b9bd1 100%);
     color: white;
     border: none;
     padding: 14px 28px;
@@ -427,7 +508,7 @@ h1 {
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
     box-shadow: 
-        0 4px 15px rgba(30,60,114,0.3),
+        0 4px 15px rgba(77,126,168,0.3),
         inset 0 1px 0 rgba(255,255,255,0.2);
     position: relative;
     overflow: hidden;
@@ -451,17 +532,17 @@ h1 {
 .map-toggle:hover {
     transform: translateY(-2px);
     box-shadow: 
-        0 6px 20px rgba(30,60,114,0.4),
+        0 6px 20px rgba(77,126,168,0.4),
         inset 0 1px 0 rgba(255,255,255,0.2);
 }
 
 .map {
     height: 280px;
     margin-top: 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    border-radius: 0;
+    box-shadow: none;
     transition: all 0.3s ease;
-    border: 2px solid rgba(212,175,55,0.3);
+    border: none;
 }
 
 .map.hidden {
@@ -487,11 +568,58 @@ h1 {
 }
 
 .blessing {
+    font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     color: #666;
     font-size: 16px;
     margin-top: 10px;
     letter-spacing: 0.5px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.info-section {
+    margin: 20px 0;
+}
+
+.contact-info {
+    margin: 25px 0;
+    padding: 10px 0;
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    text-align: center;
+}
+
+.contact-info p {
+    margin: 8px 0;
+    font-size: 18px;
+    color: #4d7ea8;
+    font-weight: 500;
+    font-family: 'Libre Baskerville', serif;
+}
+
+.contact-info a {
+    color: #4d7ea8;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: #2b5d8a;
+    text-decoration: underline;
+}
+
+.closing-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: #4d7ea8;
+    font-weight: 500;
+    text-align: center;
+    margin: 20px 0;
+    font-style: italic;
+    letter-spacing: 0.3px;
 }
 
 /* Animazione rottura sigillo migliorata */
@@ -527,142 +655,404 @@ h1 {
 }
 
 .invitation::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 100%);
+    background: linear-gradient(135deg, #4d7ea8 0%, #6b9bd1 100%);
     border-radius: 10px;
 }
 
 .invitation::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #b8941f 0%, #d4c4a1 100%);
+    background: linear-gradient(135deg, #2b5d8a 0%, #4d7ea8 100%);
 }
 
-/* Responsive Design */
+/* Template Invito Stile */
+.invitation-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.angel-top {
+    margin-bottom: 20px;
+}
+
+.angel-image {
+    width: 120px;
+    height: auto;
+    opacity: 0.8;
+}
+
+.main-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 72px;
+    color: #4d7ea8;
+    margin: 10px 0;
+    font-weight: 400;
+}
+
+.subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 24px;
+    color: #6b9bd1;
+    margin: 5px 0;
+    font-style: italic;
+}
+
+.event-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 36px;
+    color: #4d7ea8;
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.invitation-body {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    color: #2b4245;
+}
+
+.date-time-section {
+    margin: 30px 0;
+}
+
+.date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: #4d7ea8;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    color: #6b9bd1;
+}
+
+.church-section {
+    margin: 25px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(77,126,168,0.05) 0%, rgba(107,155,209,0.05) 100%);
+    border-radius: 10px;
+}
+
+.church-name {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    color: #4d7ea8;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.church-address {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: #5a5a5a;
+}
+
+.divider {
+    font-size: 24px;
+    color: #6b9bd1;
+    margin: 30px 0;
+    letter-spacing: 10px;
+}
+
+.reception-info {
+    margin: 30px 0;
+    padding: 25px;
+    background: linear-gradient(135deg, rgba(224,236,255,0.3) 0%, rgba(240,244,255,0.3) 100%);
+    border-radius: 15px;
+    border: 1px solid rgba(77,126,168,0.1);
+}
+
+.reception-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: #5a5a5a;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.restaurant-name {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    color: #4d7ea8;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+.restaurant-address {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.parents-section {
+    margin: 40px 0;
+}
+
+.parents-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: #6b9bd1;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.parents-names {
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    color: #4d7ea8;
+    font-weight: 600;
+}
+
+.confirmation-section {
+    margin: 40px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(77,126,168,0.08) 0%, rgba(107,155,209,0.05) 100%);
+    border-radius: 10px;
+}
+
+.confirmation-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: #5a5a5a;
+    font-style: italic;
+    margin-bottom: 10px;
+}
+
+.contact-numbers {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+}
+
+.contact-numbers a {
+    color: #4d7ea8;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-numbers a:hover {
+    color: #2b5d8a;
+    text-decoration: underline;
+}
+
+.invitation-footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.angel-footer {
+    width: 80px;
+    height: auto;
+    opacity: 0.6;
+}
+
+/* Rimuovi vecchi stili non necessari - AGGIORNATO */
+.angel-container,
+.invitation-title,
+.event-type,
+.teddy-bear,
+.main-title,
+.subtitle,
+.event-title,
+.angel-top,
+.angel-image,
+.invitation-header,
+.invitation-body,
+.date-time-section,
+.date,
+.time,
+.church-section,
+.church-name,
+.church-address,
+.divider,
+.reception-info,
+.reception-text,
+.restaurant-name,
+.restaurant-address,
+.parents-section,
+.parents-text,
+.parents-names,
+.confirmation-section,
+.confirmation-text,
+.contact-numbers,
+.invitation-footer,
+.angel-footer {
+    display: none;
+}
+
+/* Template Image */
+.template-image {
+    width: 120px;
+    height: auto;
+    opacity: 0.9;
+    margin: 20px 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Template separator images */
+.template-separator {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.template-separator-image {
+    width: 80px;
+    height: auto;
+    opacity: 0.7;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+}
+
+/* Media Queries per il nuovo template */
 @media (max-width: 768px) {
-    .container {
-        padding: 20px;
+    .template-image {
+        width: 80px;
     }
     
-    .envelope {
-        width: 400px;
-        height: 280px;
+    .main-title {
+        font-size: 56px;
     }
     
-    .simple-text {
-        font-size: 14px;
-        bottom: 20px;
-    }
-    
-    .gallery-title {
-        font-size: 16px;
-    }
-    
-    .gallery-container {
-        gap: 10px;
-    }
-    
-    .gallery-image {
-        height: 140px;
-    }
-    
-    .invitation-content {
-        padding: 40px 20px 30px 20px;
-        max-width: 100%;
-        width: 98%;
-    }
-    
-    h1 {
+    .subtitle {
         font-size: 20px;
     }
     
-    .name {
-        font-size: 26px;
+    .event-title {
+        font-size: 28px;
     }
     
-    .invite-text {
-        font-size: 16px;
+    .angel-image {
+        width: 100px;
     }
     
-    .info {
-        padding: 20px;
-    }
-    
-    .info p {
-        font-size: 15px;
-    }
-    
-    .highlight {
-        font-size: 16px;
-    }
-    
-    .reception-location {
+    .date {
         font-size: 20px;
     }
     
-    .map {
-        height: 200px;
+    .time {
+        font-size: 18px;
     }
     
-    .angels {
-        font-size: 30px;
+    .church-name,
+    .restaurant-name {
+        font-size: 18px;
+    }
+    
+    .parents-names {
+        font-size: 24px;
     }
 }
 
 @media (max-width: 480px) {
-    .envelope {
-        width: 320px;
-        height: 220px;
+    .template-image {
+        width: 60px;
     }
     
-    .simple-text {
-        font-size: 12px;
-        bottom: 15px;
+    .main-title {
+        font-size: 42px;
     }
     
-    .gallery-container {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        max-width: 280px;
+    .subtitle {
+        font-size: 18px;
     }
     
-    .gallery-image {
-        height: 160px;
+    .event-title {
+        font-size: 24px;
     }
     
-    .gallery-title {
+    .angel-image {
+        width: 80px;
+    }
+    
+    .date {
+        font-size: 18px;
+    }
+    
+    .time {
+        font-size: 16px;
+    }
+    
+    .church-name,
+    .restaurant-name {
+        font-size: 16px;
+    }
+    
+    .church-address,
+    .restaurant-address,
+    .reception-text {
         font-size: 14px;
     }
     
-    .invitation-content {
-        padding: 30px 15px 20px 15px;
-        max-width: 100%;
-        width: 98%;
+    .parents-names {
+        font-size: 20px;
     }
     
-    .cross {
-        font-size: 40px;
-        margin-bottom: 15px;
+    .divider {
+        font-size: 20px;
+        letter-spacing: 5px;
     }
     
-    .name {
-        font-size: 22px;
-        margin-bottom: 20px;
+    .angel-footer {
+        width: 60px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .template-image {
+        width: 120px;
     }
     
-    .info p {
-        font-size: 14px;
-        margin: 8px 0;
+    .main-title {
+        font-size: 84px;
+    }
+    
+    .subtitle {
+        font-size: 28px;
+    }
+    
+    .event-title {
+        font-size: 42px;
+    }
+    
+    .angel-image {
+        width: 140px;
+    }
+    
+    .date {
+        font-size: 26px;
+    }
+    
+    .time {
+        font-size: 24px;
+    }
+    
+    .church-name,
+    .restaurant-name {
+        font-size: 26px;
+    }
+    
+    .parents-names {
+        font-size: 32px;
     }
 }
 
 /* Desktop ottimizzazioni */
 @media (min-width: 1024px) {
     .envelope {
-        width: 550px;
-        height: 400px;
+        max-width: 85vw;
+        max-height: 85vh;
+    }
+    
+    .envelope-image {
+        max-height: 85vh;
     }
     
     .simple-text {
-        font-size: 18px;
-        bottom: 40px;
+        font-size: 20px;
+        right: 5px;
+        bottom: 5px;
     }
     
     .gallery-title {
@@ -676,6 +1066,15 @@ h1 {
     
     .gallery-image {
         height: 200px;
+        object-fit: contain;
+    }
+    
+    .contact-info p {
+        font-size: 20px;
+    }
+    
+    .closing-text {
+        font-size: 22px;
     }
     
     .invitation-content {

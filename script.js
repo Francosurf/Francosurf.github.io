@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Google Maps iframe ready');
     };
     
-    // Crea particelle di luce per lo sfondo
+    // Crea particelle di luce celestiale per lo sfondo
     function createParticles() {
         const particlesContainer = document.createElement('div');
         particlesContainer.style.cssText = `
@@ -20,18 +20,21 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.body.appendChild(particlesContainer);
         
-        for (let i = 0; i < 30; i++) {
+        // Stelle e particelle di luce celestiale
+        for (let i = 0; i < 40; i++) {
             const particle = document.createElement('div');
+            const isLarge = Math.random() > 0.7;
             particle.style.cssText = `
                 position: absolute;
-                width: ${Math.random() * 4 + 2}px;
-                height: ${Math.random() * 4 + 2}px;
-                background: radial-gradient(circle, rgba(255,215,0,0.8) 0%, transparent 70%);
+                width: ${isLarge ? Math.random() * 6 + 4 : Math.random() * 3 + 1}px;
+                height: ${isLarge ? Math.random() * 6 + 4 : Math.random() * 3 + 1}px;
+                background: radial-gradient(circle, rgba(77,126,168,0.9) 0%, rgba(107,155,209,0.6) 50%, transparent 70%);
                 border-radius: 50%;
                 left: ${Math.random() * 100}%;
                 top: ${Math.random() * 100}%;
-                animation: floatParticle ${20 + Math.random() * 20}s linear infinite;
+                animation: ${isLarge ? 'twinkle' : 'floatParticle'} ${20 + Math.random() * 20}s linear infinite;
                 animation-delay: ${Math.random() * 20}s;
+                box-shadow: 0 0 ${isLarge ? '10px' : '5px'} rgba(77,126,168,0.3);
             `;
             particlesContainer.appendChild(particle);
         }
@@ -104,8 +107,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 mapElement.classList.add('hidden');
             }, 300);
             button.textContent = mapId === 'church-map' ? 
-                '📍 Mostra mappa della chiesa' : 
-                '📍 Mostra mappa del ristorante';
+                '📍 Mostra la via per la Chiesa' : 
+                '📍 Mostra la via per il Ristorante';
         }
     };
     
@@ -165,14 +168,25 @@ style.textContent = `
             opacity: 0;
         }
         10% {
-            opacity: 1;
+            opacity: 0.8;
         }
         90% {
-            opacity: 1;
+            opacity: 0.8;
         }
         100% {
             transform: translateY(-100vh) rotate(360deg);
             opacity: 0;
+        }
+    }
+    
+    @keyframes twinkle {
+        0%, 100% {
+            opacity: 0.3;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 1;
+            transform: scale(1.2);
         }
     }
     
