@@ -715,11 +715,24 @@ style.textContent = `
         cursor: pointer;
         will-change: transform, opacity;
         perspective: 1000px;
+        max-width: 90vw;
+        max-height: 80vh;
+        width: auto;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     .envelope-image {
         will-change: transform, filter;
         transition: all 0.3s ease;
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        object-position: center;
     }
     
     .opened-invitation {
@@ -739,6 +752,8 @@ style.textContent = `
         will-change: transform, opacity, filter;
         overflow: hidden;
         position: relative;
+        padding: 2vh 2vw;
+        box-sizing: border-box;
     }
     
     .opened-invitation::after {
@@ -768,11 +783,12 @@ style.textContent = `
     }
     
     .opened-image {
-        max-width: 95vw;
-        max-height: 95vh;
+        max-width: 90vw;
+        max-height: 85vh;
         width: auto;
         height: auto;
         object-fit: contain;
+        object-position: center;
         border-radius: 15px;
         box-shadow: 
             0 25px 80px rgba(0,0,0,0.3),
@@ -783,6 +799,8 @@ style.textContent = `
         will-change: transform, filter;
         position: relative;
         z-index: 10;
+        display: block;
+        margin: auto;
     }
     
     .opened-image:hover {
@@ -826,31 +844,109 @@ style.textContent = `
         }
     }
     
-    /* Responsive design per diversi dispositivi */
-    @media (max-width: 768px) {
+    /* Responsive design per tutti i dispositivi */
+    @media (max-width: 480px) {
+        .envelope {
+            max-width: 95vw;
+            max-height: 70vh;
+        }
+        
+        .envelope-image {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
         .opened-image {
-            max-width: 98vw;
-            max-height: 98vh;
+            max-width: 95vw;
+            max-height: 80vh;
+            border-radius: 8px;
+        }
+        
+        .opened-image:hover {
+            transform: none; /* Disabilita zoom su mobile piccolo */
+        }
+    }
+    
+    @media (max-width: 768px) and (min-width: 481px) {
+        .envelope {
+            max-width: 92vw;
+            max-height: 75vh;
+        }
+        
+        .opened-image {
+            max-width: 92vw;
+            max-height: 82vh;
             border-radius: 10px;
         }
         
         .opened-image:hover {
-            transform: none; /* Disabilita zoom su mobile */
+            transform: scale(1.01); /* Zoom ridotto su tablet */
         }
     }
     
-    @media (min-width: 1024px) {
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .envelope {
+            max-width: 85vw;
+            max-height: 80vh;
+        }
+        
         .opened-image {
-            max-width: 90vw;
-            max-height: 90vh;
+            max-width: 88vw;
+            max-height: 85vh;
+            border-radius: 12px;
+        }
+    }
+    
+    @media (min-width: 1025px) and (max-width: 1440px) {
+        .envelope {
+            max-width: 80vw;
+            max-height: 85vh;
+        }
+        
+        .opened-image {
+            max-width: 85vw;
+            max-height: 88vh;
+            border-radius: 15px;
+        }
+    }
+    
+    @media (min-width: 1441px) {
+        .envelope {
+            max-width: 75vw;
+            max-height: 80vh;
+        }
+        
+        .opened-image {
+            max-width: 80vw;
+            max-height: 85vh;
             border-radius: 20px;
         }
     }
     
-    @media (min-width: 1440px) {
-        .opened-image {
-            max-width: 80vw;
+    /* Orientamento landscape per mobile */
+    @media (max-height: 500px) and (orientation: landscape) {
+        .envelope {
+            max-width: 70vw;
             max-height: 85vh;
+        }
+        
+        .opened-image {
+            max-width: 75vw;
+            max-height: 85vh;
+        }
+    }
+    
+    /* Dispositivi molto piccoli */
+    @media (max-width: 320px) {
+        .envelope {
+            max-width: 98vw;
+            max-height: 65vh;
+        }
+        
+        .opened-image {
+            max-width: 98vw;
+            max-height: 75vh;
+            border-radius: 5px;
         }
     }
     
