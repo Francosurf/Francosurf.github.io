@@ -56,10 +56,16 @@ document.addEventListener('DOMContentLoaded', function() {
             // Animazione busta
             envelope.classList.add('open');
             envelope.style.animation = 'none';
+            envelope.style.zIndex = '10'; // Assicuriamo che la busta vada in secondo piano
             
             // Mostra invito con animazione migliorata
             setTimeout(function() {
+                // Assicuriamoci che l'invito sia davanti a tutto
+                invitation.style.zIndex = '1000';
                 invitation.classList.add('show');
+                
+                // Rimuoviamo eventuali ostacoli e rendiamo l'invito cliccabile
+                invitation.style.pointerEvents = 'all';
                 
                 // Scroll automatico per mobile
                 if (window.innerWidth <= 768) {

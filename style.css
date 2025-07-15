@@ -165,7 +165,7 @@ body::before {
 }
 
 .invitation {
-    position: absolute;
+    position: fixed;
     width: 90%;
     max-width: 500px;
     background: linear-gradient(135deg, #fffffe 0%, #fafaf8 100%);
@@ -173,18 +173,17 @@ body::before {
     padding: 40px;
     text-align: center;
     box-shadow: 
-        0 25px 70px rgba(0,0,0,0.2),
+        0 25px 70px rgba(0,0,0,0.3),
         0 0 0 1px rgba(0,0,0,0.02);
     opacity: 0;
     visibility: hidden;
-    transform: scale(0.3) translateY(100px);
+    transform: translate(-50%, -50%) scale(0.3);
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.3);
-    max-height: 90vh;
+    max-height: 85vh;
     overflow-y: auto;
-    z-index: 100;
+    z-index: 50;
     pointer-events: none;
 }
 
@@ -193,6 +192,613 @@ body::before {
     visibility: visible;
     transform: translate(-50%, -50%) scale(1);
     pointer-events: all;
+    z-index: 9999;
+    box-shadow: 
+        0 30px 80px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(0,0,0,0.02);
+}
+
+/* Backdrop scuro quando l'invito è aperto */
+.invitation.show::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+    backdrop-filter: blur(3px);
+}
+
+.envelope.open {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotateY(10deg);
+    pointer-events: none;
+    z-index: 5;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animazione di apertura più fluida */
+@keyframes invitationReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(50px) rotateX(30deg);
+    }
+    50% {
+        transform: scale(1.02) translateY(-10px) rotateX(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotateX(0deg);
+    }
+}
+
+.invitation.show {
+    animation: invitationReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Bordo dorato */
+.invitation::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, #d4af37, #f4e4c1, #d4af37) 1;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.cross {
+    font-size: 60px;
+    background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.name {
+    font-family: 'Cinzel', serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 36px;
+    margin-bottom: 35px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.details {
+    color: #4a4a4a;
+    line-height: 1.8;
+}
+
+.invite-text {
+    font-size: 20px;
+    color: #5a5a5a;
+    margin: 8px 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.info {
+    background: 
+        linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(212,175,55,0.02) 100%),
+        #fafaf8;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 30px 0;
+    text-align: left;
+    border: 1px solid rgba(212,175,55,0.2);
+    position: relative;
+}
+
+.info::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, transparent, rgba(212,175,55,0.3), transparent);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.info:hover::before {
+    opacity: 1;
+}
+
+.info p {
+    margin: 12px 0;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.highlight {
+    color: #1e3c72;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.reception-section {
+    margin: 35px 0;
+    padding: 25px;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff5e1 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(230,81,0,0.1);
+}
+
+.reception {
+    font-size: 20px;
+    color: #5a5a5a;
+    margin-bottom: 12px;
+}
+
+.reception-location {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    background: linear-gradient(135deg, #e65100 0%, #ff6d00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    margin: 8px 0;
+}
+
+.reception-address {
+    color: #666;
+    font-size: 18px;
+}
+
+.map-container {
+    margin: 25px 0;
+}
+
+.map-toggle {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 15px rgba(30,60,114,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.map-toggle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.map-toggle:hover::before {
+    left: 100%;
+}
+
+.map-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 20px rgba(30,60,114,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.map {
+    height: 280px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(212,175,55,0.3);
+}
+
+.map.hidden {
+    display: none;
+}
+
+.angels {
+    font-size: 40px;
+    margin: 30px 0 15px;
+    animation: floatAngels 4s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+@keyframes floatAngels {
+    0%, 100% { 
+        transform: translateY(0) scale(1); 
+        filter: brightness(1);
+    }
+    50% { 
+        transform: translateY(-15px) scale(1.05); 
+        filter: brightness(1.2);
+    }
+}
+
+.blessing {
+    font-style: italic;
+    color: #666;
+    font-size: 16px;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* ...existing code... */
+
+.invitation {
+    position: fixed;
+    width: 90%;
+    max-width: 500px;
+    background: linear-gradient(135deg, #fffffe 0%, #fafaf8 100%);
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 
+        0 25px 70px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(0,0,0,0.02);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(0.3);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    top: 50%;
+    left: 50%;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.invitation.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: all;
+    z-index: 9999;
+    box-shadow: 
+        0 30px 80px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(0,0,0,0.02);
+}
+
+/* Backdrop scuro quando l'invito è aperto */
+.invitation.show::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+    backdrop-filter: blur(3px);
+}
+
+.envelope.open {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotateY(10deg);
+    pointer-events: none;
+    z-index: 5;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animazione di apertura più fluida */
+@keyframes invitationReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(50px) rotateX(30deg);
+    }
+    50% {
+        transform: scale(1.02) translateY(-10px) rotateX(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotateX(0deg);
+    }
+}
+
+.invitation.show {
+    animation: invitationReveal 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Bordo dorato */
+.invitation::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, #d4af37, #f4e4c1, #d4af37) 1;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.cross {
+    font-size: 60px;
+    background: linear-gradient(135deg, #d4af37 0%, #f4e4c1 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.name {
+    font-family: 'Cinzel', serif;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 36px;
+    margin-bottom: 35px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.details {
+    color: #4a4a4a;
+    line-height: 1.8;
+}
+
+.invite-text {
+    font-size: 20px;
+    color: #5a5a5a;
+    margin: 8px 0;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+.info {
+    background: 
+        linear-gradient(135deg, rgba(212,175,55,0.05) 0%, rgba(212,175,55,0.02) 100%),
+        #fafaf8;
+    padding: 30px;
+    border-radius: 10px;
+    margin: 30px 0;
+    text-align: left;
+    border: 1px solid rgba(212,175,55,0.2);
+    position: relative;
+}
+
+.info::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, transparent, rgba(212,175,55,0.3), transparent);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.info:hover::before {
+    opacity: 1;
+}
+
+.info p {
+    margin: 12px 0;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.highlight {
+    color: #1e3c72;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.reception-section {
+    margin: 35px 0;
+    padding: 25px;
+    background: linear-gradient(135deg, #fff9e6 0%, #fff5e1 100%);
+    border-radius: 10px;
+    border: 1px solid rgba(230,81,0,0.1);
+}
+
+.reception {
+    font-size: 20px;
+    color: #5a5a5a;
+    margin-bottom: 12px;
+}
+
+.reception-location {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    background: linear-gradient(135deg, #e65100 0%, #ff6d00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    margin: 8px 0;
+}
+
+.reception-address {
+    color: #666;
+    font-size: 18px;
+}
+
+.map-container {
+    margin: 25px 0;
+}
+
+.map-toggle {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 15px rgba(30,60,114,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.map-toggle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.map-toggle:hover::before {
+    left: 100%;
+}
+
+.map-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 6px 20px rgba(30,60,114,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.map {
+    height: 280px;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+    border: 2px solid rgba(212,175,55,0.3);
+}
+
+.map.hidden {
+    display: none;
+}
+
+.angels {
+    font-size: 40px;
+    margin: 30px 0 15px;
+    animation: floatAngels 4s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+@keyframes floatAngels {
+    0%, 100% { 
+        transform: translateY(0) scale(1); 
+        filter: brightness(1);
+    }
+    50% { 
+        transform: translateY(-15px) scale(1.05); 
+        filter: brightness(1.2);
+    }
+}
+
+.blessing {
+    font-style: italic;
+    color: #666;
+    font-size: 16px;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* ...existing code... */
+
+.invitation {
+    position: fixed;
+    width: 90%;
+    max-width: 500px;
+    background: linear-gradient(135deg, #fffffe 0%, #fafaf8 100%);
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 
+        0 25px 70px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(0,0,0,0.02);
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(0.3);
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    top: 50%;
+    left: 50%;
+    max-height: 85vh;
+    overflow-y: auto;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.invitation.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: all;
+    z-index: 9999;
+    box-shadow: 
+        0 30px 80px rgba(0,0,0,0.4),
+        0 0 0 1px rgba(0,0,0,0.02);
+}
+
+/* Backdrop scuro quando l'invito è aperto */
+.invitation.show::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
+    backdrop-filter: blur(3px);
+}
+
+.envelope.open {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8) rotateY(10deg);
+    pointer-events: none;
+    z-index: 5;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Animazione di apertura più fluida */
@@ -474,12 +1080,13 @@ h1 {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0.3);
-        max-height: 90vh;
+        max-height: 85vh;
         padding: 25px 20px;
     }
     
     .invitation.show {
         transform: translate(-50%, -50%) scale(1);
+        z-index: 9999;
     }
     
     h1 {
@@ -538,7 +1145,9 @@ h1 {
     }
     
     .invitation {
+        width: 95%;
         padding: 20px 15px;
+        max-height: 90vh;
     }
     
     .cross {
@@ -587,8 +1196,8 @@ h1 {
     
     .invitation {
         max-width: 550px;
-        margin-left: -275px;
         padding: 50px;
+        max-height: 80vh;
     }
 }
 
